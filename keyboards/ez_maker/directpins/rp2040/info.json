@@ -1,12 +1,24 @@
 {
-    "manufacturer": "Raspberry Pi",
-    "keyboard_name": "DirectPins RP2040",
-    "maintainer": "jepler",
+    "keyboard_name": "BLIUNK",
+    "manufacturer": "Lucy",
+    "maintainer": "caelenfeller",
     "bootloader": "rp2040",
+    "tags":["left", "split"],
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": true
+        "mousekey": true,
+        "rgblight": true,
+        "rgblight_layers": true
+    },
+    "build": {
+        "firmware_format": "uf2"
+    },
+    "processor": "RP2040",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x2326",
+        "vid": "0xFEED"
     },
     "matrix_pins": {
         "direct": [
@@ -32,11 +44,16 @@
             ["GP15", "GP16"]
         ]
     },
-    "processor": "RP2040",
-    "usb": {
-        "device_version": "0.0.1",
-        "pid": "0x2326",
-        "vid": "0xFEED"
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP23"
+    },
+    "rgblight": {
+        "led_count": 1,
+        "max_brightness": 80,
+        "layers": {
+            "enabled": true
+        }
     },
     "layouts": {
         "LAYOUT_all": {
