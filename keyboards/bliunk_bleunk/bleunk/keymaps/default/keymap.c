@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-
+#include "keymap_uk.h"
 #define LAYOUT_c(k5B, k6B, k7B, k9B, kAB, kBB, kCB, kDB, k0A, k1A, k2A, k3A, k4A, k5A, kEB, kFB, k6A, k7A, k8A, k9A, kAA, kBA, kCA, kDA, kEA, kFA) { \
          {k0A, KC_NO}, \
          {k1A, KC_NO}, \
@@ -29,7 +29,7 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL] = LAYOUT_c(
         KC_Y,   KC_U,   KC_I,   KC_O,       KC_P,       KC_LBRC,    KC_RBRC,    KC_BSPC,
-        KC_H,   KC_J,   KC_K,   KC_L,       KC_SCLN,    KC_QUOT,    KC_NUHS,    KC_ENT,
+        KC_H,   KC_J,   KC_K,   KC_L,       KC_SCLN,    UK_QUOT,    UK_HASH,    KC_ENT,
         KC_B,   KC_N,   KC_M,   KC_COMM,    KC_DOT,     KC_SLSH,    KC_ALGR,
         MO(_LFL),   TT(_MFL),   MO(_RFL)
     ),
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   _______,   _______
     ),
     [_MFL] = LAYOUT_c(
-        TG(_MFL),   TG(_MFL),   KC_UP,   TG(_MFL),    TG(_MFL),     TG(_MFL),    TG(_MFL),    _______,
+        TG(_MFL),   KC_PGUP,   KC_UP,  KC_PGDN,    TG(_MFL),     TG(_MFL),    TG(_MFL),    _______,
         TG(_MFL),   KC_LEFT,   KC_DOWN,   KC_RGHT,    TG(_MFL),     TG(_MFL),    TG(_MFL),    _______,
         TG(_MFL),   TG(_MFL),   TG(_MFL),   TG(_MFL),    TG(_MFL),     TG(_MFL),    _______,
         _______,   TG(_MFL),   _______

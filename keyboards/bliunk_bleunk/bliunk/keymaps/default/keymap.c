@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "keymap_uk.h"
 
 #define LAYOUT_c(k5A, k4A, k3A, k2A, k1A, k0A, k6A, k7A, k8A, k9A, kAA, kBA, k6B, k5B, kFA, kEA, kDA, kCA, k7B, k9B, kAB, kBB, kCB, kDB, kFB, kEB) { \
          {k0A, KC_NO}, \
@@ -25,21 +26,29 @@ enum layer_names {
     _BFL, // Bottom function/Number layer
     _LFL, // Left function layer
     _RFL, // Right function layer
-    _UNL // Uppercase Number layer
+    _UNL, // Uppercase Number layer
+    _ML // Media Layer
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL] = LAYOUT_c(
         KC_TAB,     KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,
         KC_ESC,     KC_A,       KC_S,       KC_D,       KC_F,       KC_G,
-        KC_LSFT,    KC_BSLS,    KC_Z,       KC_X,       KC_C,       KC_V,
-        KC_LCTL,    KC_LGUI,    MO(_FL),    KC_LALT,    KC_SPC,
+        KC_LSFT,    UK_BSLS,    KC_Z,       KC_X,       KC_C,       KC_V,
+        KC_LCTL,    MO(_FL),    KC_LGUI,    KC_LALT,    KC_SPC,
         MO(_LFL),   MO(_RFL),
-        MO(_BFL)
+        TT(_BFL)
     ),
-
     [_FL] = LAYOUT_c(
-        _______, _______, _______, _______, _______, _______,
+        _______, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,
+        _______, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
+        _______, _______, _______, _______, KC_F11, KC_F12,
+        _______, _______, _______, _______, _______,
+        _______, _______,
+        MO(_ML)
+    ),
+    [_ML] = LAYOUT_c(
+        _______, KC_MEDIA_PLAY_PAUSE, KC_MUTE, KC_VOLD, KC_VOLU, _______,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______,
@@ -48,11 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_BFL] = LAYOUT_c(
         KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
-        _______,     KC_4,    KC_5,    KC_6,    _______, _______,
-        _______,  KC_7, KC_8, KC_9, _______, _______,
-        _______,  _______, _______, _______, KC_0,
+        _______,     KC_4,    KC_5,    KC_6,    KC_PLUS, KC_MINUS,
+        _______,  KC_7, KC_8, KC_9, KC_ASTERISK, KC_SLASH,
+        _______,  _______, _______, KC_0, KC_EQUAL,
         MO(_UNL), _______,
-        _______
+        TG(_BFL)
     ),
     [_LFL] = LAYOUT_c(
         _______, _______, _______, _______, _______, _______,
@@ -93,6 +102,9 @@ const rgblight_segment_t PROGMEM bl_layer[] = RGBLIGHT_LAYER_SEGMENTS(
 const rgblight_segment_t PROGMEM fl_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_CYAN}
 );
+const rgblight_segment_t PROGMEM ml_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+    {0, 1, HSV_GOLD}
+);
 const rgblight_segment_t PROGMEM bfl_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 1, HSV_MAGENTA}
 );
@@ -112,7 +124,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
     bfl_layer,
     lfl_layer,
     rfl_layer,
-    unl_layer
+    unl_layer,
+    ml_layer
 );
 
 void keyboard_post_init_user(void) {
@@ -131,5 +144,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     rgblight_set_layer_state(3, layer_state_cmp(state, _LFL));
     rgblight_set_layer_state(4, layer_state_cmp(state, _RFL));
     rgblight_set_layer_state(5, layer_state_cmp(state, _UNL));
+    rgblight_set_layer_state(6, layer_state_cmp(state, _ML));
     return state;
 }
